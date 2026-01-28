@@ -5,21 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
+import com.example.filmsapp.R
 import com.example.filmsapp.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
     private lateinit var binding : FragmentDetailBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
 
         val bundle : DetailFragmentArgs by navArgs()
         val film = bundle.film
-        binding.toolbarDetail.title = film.name
+        binding.filmObject = film
         binding.ivFilm.setImageResource(
             resources.getIdentifier(film.image, "drawable", requireContext().packageName)
         )
-        binding.tvPrice.text = "${film.price} TL"
         return binding.root
     }
 }

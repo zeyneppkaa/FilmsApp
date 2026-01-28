@@ -3,8 +3,10 @@ package com.example.filmsapp.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.filmsapp.R
 import com.example.filmsapp.data.entity.Film
 import com.example.filmsapp.databinding.FilmCardDesignBinding
 import com.example.filmsapp.ui.fragment.HomeFragmentDirections
@@ -17,7 +19,7 @@ class FilmAdapter( var mContex : Context, var filmsList : List<Film> )
     inner class FilmCardDesignViewHolder( var design : FilmCardDesignBinding) : RecyclerView.ViewHolder(design.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmCardDesignViewHolder {
-        val binding = FilmCardDesignBinding.inflate(LayoutInflater.from(mContex), parent, false)
+        val binding : FilmCardDesignBinding = DataBindingUtil.inflate(LayoutInflater.from(mContex), R.layout.film_card_design, parent, false)
         return FilmCardDesignViewHolder(binding)
     }
 
@@ -26,8 +28,7 @@ class FilmAdapter( var mContex : Context, var filmsList : List<Film> )
         val d = holder.design
 
         d.imageViewFilm.setImageResource(mContex.resources.getIdentifier(film.image, "drawable", mContex.packageName))
-        d.textViewPrice.text = "${film.price} TL"
-
+        d.filmObject = film
         d.cardViewFilm.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(film)
             Navigation.findNavController(it).navigate(action)

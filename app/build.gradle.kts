@@ -6,12 +6,11 @@ plugins {
 
 android {
     namespace = "com.example.filmsapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 
     defaultConfig {
@@ -39,6 +38,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+        languageVersion = "1.9"
     }
 }
 

@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.databinding.DataBindingUtil
+import com.example.filmsapp.R
 import com.example.filmsapp.data.entity.Film
 import com.example.filmsapp.databinding.FragmentHomeBinding
 import com.example.filmsapp.ui.adapter.FilmAdapter
@@ -13,10 +14,9 @@ import com.example.filmsapp.ui.adapter.FilmAdapter
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        binding.toolbarHome.title = "Home"
-        binding.filmRv.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.homeToolbarTitle = "Home"
 
         val filmsList = ArrayList<Film>()
         val f1 = Film(1, "Django", "django", 24)
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         filmsList.add(f6)
 
         val filmAdapter = FilmAdapter(requireContext(), filmsList)
-        binding.filmRv.adapter = filmAdapter
+        binding.filmsAdapter = filmAdapter
 
         return binding.root
     }
