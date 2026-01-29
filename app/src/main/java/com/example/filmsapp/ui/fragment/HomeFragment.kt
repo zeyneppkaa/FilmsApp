@@ -6,35 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.example.filmsapp.R
-import com.example.filmsapp.data.entity.Film
 import com.example.filmsapp.databinding.FragmentHomeBinding
 import com.example.filmsapp.ui.adapter.FilmAdapter
+import com.example.filmsapp.ui.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: HomeViewModel by viewModels()
+        viewModel = tempViewModel
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
         binding.homeToolbarTitle = "Home"
 
-        val filmsList = ArrayList<Film>()
-        val f1 = Film(1, "Django", "django", 24)
-        val f2 = Film(2, "Interstellar", "interstellar", 32)
-        val f3 = Film(3, "Inception", "inception", 16)
-        val f4 = Film(4, "The Hateful Eight", "thehatefuleight", 28)
-        val f5 = Film(5, "The Pianist", "thepianist", 18)
-        val f6 = Film(6, "Anadoluda", "anadoluda", 10)
-        filmsList.add(f1)
-        filmsList.add(f2)
-        filmsList.add(f3)
-        filmsList.add(f4)
-        filmsList.add(f5)
-        filmsList.add(f6)
-
-        val filmAdapter = FilmAdapter(requireContext(), filmsList)
-        binding.filmsAdapter = filmAdapter
-
+        viewModel.filmsList.observe(viewLifecycleOwner){
+            val filmAdapter = FilmAdapter(requireContext(), it)
+            binding.filmsAdapter = filmAdapter
+        }
         return binding.root
     }
 }
