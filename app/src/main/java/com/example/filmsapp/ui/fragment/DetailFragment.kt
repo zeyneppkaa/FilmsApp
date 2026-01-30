@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.example.filmsapp.R
 import com.example.filmsapp.databinding.FragmentDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
     private lateinit var binding : FragmentDetailBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
