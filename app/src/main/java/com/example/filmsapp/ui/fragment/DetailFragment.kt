@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.filmsapp.R
 import com.example.filmsapp.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +21,10 @@ class DetailFragment : Fragment() {
         val bundle : DetailFragmentArgs by navArgs()
         val film = bundle.film
         binding.filmObject = film
-        binding.ivFilm.setImageResource(
-            resources.getIdentifier(film.image, "drawable", requireContext().packageName)
-        )
+
+        val url = "http://kasimadalan.pe.hu/filmler_yeni/resimler/${film.resim}"
+        Glide.with(this).load(url).override(500,750).into(binding.ivFilm)
+
         return binding.root
     }
 }
